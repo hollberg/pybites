@@ -11,6 +11,9 @@ def pdf_merge(list_of_files, merged_pdf):
   list_of_files: list containing strings containing the full "PATHNAME/FILENAME.pdf". 
       ex: list_of_files = ['C:/Mydocs/file1.pdf', 'C:/Mydocs/file2.pdf']
   merged_pdf: the filepath and file name of the merged pdf file
+  Dependencies:
+  import os
+  from PyPDF2 import PdfFileReader, PdfFileMerger
 """
     merger = PdfFileMerger()
     for fname in list_of_files:
