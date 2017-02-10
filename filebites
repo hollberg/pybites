@@ -1,0 +1,21 @@
+"""filebites.py
+Scripts, functions, etc. related to file management
+"""
+
+import os
+import PyPDF2
+from PyPDF2 import PdfFileMerger, PdfFileReader
+
+def pdf_merge(list_of_files, merged_pdf):
+"""Merge several *.pdf files into a single file.
+  list_of_files: list containing strings containing the full "PATHNAME/FILENAME.pdf". 
+      ex: list_of_files = ['C:/Mydocs/file1.pdf', 'C:/Mydocs/file2.pdf']
+  merged_pdf: the filepath and file name of the merged pdf file
+"""
+    merger = PdfFileMerger()
+    for fname in list_of_files:
+        append_fpath = os.path.abspath(fname) #Map to OS-independent file path
+        f = open(append_fpath, 'rb')          #Open Current File
+        merger.append(PdfFileReader(f))       #Append
+        f.close()             
+    merger.write(merged_pdf)
