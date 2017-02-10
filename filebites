@@ -6,7 +6,7 @@ import os
 import PyPDF2
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
-def pdf_merge(list_of_files, merged_pdf):
+def file_pdf_merge(list_of_files, merged_pdf):
 """Merge several *.pdf files into a single file.
   list_of_files: list containing strings containing the full "PATHNAME/FILENAME.pdf". 
       ex: list_of_files = ['C:/Mydocs/file1.pdf', 'C:/Mydocs/file2.pdf']
@@ -22,3 +22,19 @@ def pdf_merge(list_of_files, merged_pdf):
         merger.append(PdfFileReader(f))       #Append
         f.close()             
     merger.write(merged_pdf)
+
+
+def files_in_directory(dir_path):
+    """Given a directory path, return a list of all files in directory
+      dir_path: string representing the file path of the directory to inventory
+      Dependencies:
+      import os
+    """
+    file_names = []
+    for filename in os.listdir(dir_path):
+    #uncomment below to include and sort files by creation date
+    #    created_date = os.path.getctime(dir_path + '\\' + filename)
+    #    file_names.append((filename, created_date))
+        file_names.append(filename)
+        
+    return sorted(file_names, key=lambda item: item[1])   #sort by time
