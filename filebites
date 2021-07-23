@@ -6,6 +6,10 @@ import os
 import PyPDF2
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
+from pathlib import Path
+import os
+import shutil
+
 def file_pdf_merge(list_of_files, merged_pdf):
 """Merge several *.pdf files into a single file.
   list_of_files: list containing strings containing the full "PATHNAME/FILENAME.pdf". 
@@ -38,3 +42,24 @@ def files_in_directory(dir_path):
         file_names.append(filename)
         
     return sorted(file_names, key=lambda item: item[1])   #sort by time
+
+
+def copy(src, dest):
+"""Copy full hierarchical directories.
+From: https://www.pythoncentral.io/how-to-recursively-copy-a-directory-folder-in-python/
+start_dir = r'C:\Py'
+moveto_dir = r'C:\move\MitchPy'
+skip_dirs = [r'venv', r'.idea', r'.git', r'__pycache__',
+             'venvEvan', 'lib', 'share', '.gitignore', 'components',
+             'etc', 'Include', 'scripts', 'chromedriver',
+             'tcl', 'selenium']
+"""
+
+    try:
+        shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*skip_dirs))
+    except OSError as e:
+        # If the error was caused because the source wasn't a directory
+        if e.errno == errno.ENOTDIR:
+            shutil.copy(src, dest)
+        else:
+            print('Directory not copied. Error: %s' % e)
